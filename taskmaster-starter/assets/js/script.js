@@ -13,7 +13,6 @@ var createTask = function(taskText, taskDate, taskList) {
   // append span and p element to parent li
   taskLi.append(taskSpan, taskP);
 
-
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
 };
@@ -44,9 +43,6 @@ var loadTasks = function() {
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
-
-
-
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
@@ -81,17 +77,21 @@ $("#task-form-modal .btn-primary").click(function() {
     saveTasks();
   }
 });
-// task text was clicked
-$(".list-group").on("click" , "p" , function() {
-  var text = $(this)
-  .text()
-  .trim();
 
+// task text was clicked
+$(".list-group").on("click", "p", function() {
+  // get current text of p element
+  var text = $(this)
+    .text()
+    .trim();
+
+  // replace p element with a new textarea
   var textInput = $("<textarea>")
-  .addClass("form-control")
-  .val(text);
-  
+    .addClass("form-control")
+    .val(text);
   $(this).replaceWith(textInput);
+
+  // auto focus new element
   textInput.trigger("focus");
 });
 
@@ -161,7 +161,7 @@ $(".list-group").on("blur", "input[type='text']", function() {
   var taskSpan = $("<span>")
     .addClass("badge badge-primary badge-pill")
     .text(date);
-    $(this).replaceWith(taskSpan);
+  $(this).replaceWith(taskSpan);
 });
 
 // remove all tasks
